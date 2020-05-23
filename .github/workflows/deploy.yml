@@ -1,0 +1,13 @@
+name: Deploy
+on:
+  push:
+    branches: master
+
+jobs:
+  Build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - run: cp example/index.html /
