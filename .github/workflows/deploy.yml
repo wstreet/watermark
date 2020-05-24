@@ -10,4 +10,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
 
-      - run: cp example/index.html /
+      - name: Deploy...
+        uses: JamesIves/github-pages-deploy-action@master
+        run: cp lib/watermark.js example/watermark.js
+        env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: example
