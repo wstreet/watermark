@@ -12,8 +12,8 @@ jobs:
 
       - name: Deploy...
         uses: JamesIves/github-pages-deploy-action@master
-        run: cp lib/watermark.js example/watermark.js
         env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BRANCH: gh-pages
           FOLDER: example
+          SCRIPT: cp lib/watermark.js example/watermark.js
