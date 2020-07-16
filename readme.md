@@ -1,4 +1,4 @@
-# WaterMakr
+# WaterMark
 水印组件
 
 ## Installation
