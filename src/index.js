@@ -1,5 +1,11 @@
+
+const MutationObserver = window.MutationObserver 
+                      || window.WebKitMutationObserver 
+                      || window.MozMutationObserver;
+
 class WaterMark {
   defaultOpts = {
+    id: 'water-mark',
     height: 50,
     width: 100,
     fontSize: 16,
@@ -13,7 +19,7 @@ class WaterMark {
 
     this.createObserver()
     this.createCanvas()
-    this.draw()
+    this.load()
     
   }
 
@@ -27,14 +33,29 @@ class WaterMark {
   }
 
   createObserver() {
-    this.observer = new MutationObserver((m, o) => {
-      console.log(m)
-      const body = document.querySelector('body')
-      const dom = this.get('dom')
-      body.removeChild(dom)
-      this.draw()
+    this.createDomObserver()
+    this.createBodyObserver()
+  }
+
+  // 水印的载体div
+  createDomObserver() {
+    this.observer = new MutationObserver(() => {
+      this.remove()
     });
   }
+
+
+  createBodyObserver() {
+    this.bodyObserver = new MutationObserver((mutationList) => {
+      if (
+          mutationList[0].removedNodes.length && 
+          mutationList[0].removedNodes[0].id === this.get('id')
+        ) {
+        this.load()
+      }
+    });
+  }
+
 
   createCanvas() {
     const canvas = document.createElement('canvas')
@@ -60,24 +81,41 @@ class WaterMark {
   }
 
   observe() {
-    const dom = this.get('dom');
-    if (dom) {
-      this.observer.observe(dom, {
-        attributes: true,
-        characterData: true,
-        childList: true
-      })
-    }
+    this.domObserve()
+    this.bodyObserve()
   }
 
-  
+  domObserve() {
+    const dom = this.get('dom');
+    this.observer.observe(dom, {
+      childList: true,
+      attributes: true,
+      characterData: true,
+    })
+  }
 
-  draw() {
+  bodyObserve() {
+    const body = document.querySelector('body')
+    this.bodyObserver.observe(body, {
+      childList: true
+    })
+  }
+
+
+  remove() {
+    const body = document.querySelector('body')
+    const dom = this.get('dom')
+    body.removeChild(dom)
+    this.set('dom', null)
+  }
+   
+
+  load() {
     const canvas = this.get('canvas')
     const img = canvas.toDataURL('image/png', 1.0)
     const body = document.querySelector('body')
     const dom = document.createElement('div')
-    dom.setAttribute('id', 'water-mark')
+    dom.setAttribute('id', this.get('id'))
     dom.setAttribute('style', 
       `
       background-image:url(${img}); 
@@ -95,7 +133,6 @@ class WaterMark {
     body.appendChild(dom)
     this.observe()
   }
-
 }
 
 export default WaterMark
