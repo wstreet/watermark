@@ -11,7 +11,8 @@ class WaterMark {
     fontSize: 16,
     rotate: -30,
     fillStyle: '#ccc',
-    fontWeight: 400
+    fontWeight: 400,
+    opacity: 1.0
   }
 
   constructor(options) {
@@ -69,13 +70,15 @@ class WaterMark {
     const text = this.get('text')
     const rotate = this.get('rotate')
     const fillStyle = this.get('fillStyle')
+    const opacity = this.get('opacity')
     
     ctx.fillStyle = fillStyle
     ctx.font=`${fontSize}px`;
+    ctx.globalAlpha = opacity;
     ctx.rotate(rotate / Math.PI * 2)
     ctx.translate(0, height / 2)
     ctx.fillText(text, 0, height / 2 )
-
+    
     this.set('canvas', canvas)
     this.set('ctx', ctx)
   }
