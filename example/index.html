@@ -19,12 +19,17 @@
     <input type="text">
 </div>
 </body>
-<script src="../lib/watermark.js"></script>
+<script src="../lib/watermark.min.js"></script>
 <script>
     const waterMark = new WaterMark({
-        text: '程序员',
-        height: 60,
-        width: 100
+        text: '@wstreet7',
+        id: 'water-mark',
+        height: 100,
+        width: 150,
+        font: '14px sans-serif',
+        rotate: -30,
+        fillStyle: '#ccc',
+        opacity: 0.5
     })
 </script>
 

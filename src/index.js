@@ -6,13 +6,13 @@ const MutationObserver = window.MutationObserver
 class WaterMark {
   defaultOpts = {
     id: 'water-mark',
-    height: 50,
-    width: 100,
-    fontSize: 16,
+    height: 100,
+    width: 150,
+    font: '10px sans-serif',
     rotate: -30,
     fillStyle: '#ccc',
-    fontWeight: 400,
-    opacity: 1.0
+    opacity: 1.0,
+    text: ''
   }
 
   constructor(options) {
@@ -66,14 +66,14 @@ class WaterMark {
     canvas.height = height
     canvas.width = width
 
-    const fontSize = this.get('fontSize')
+    const font = this.get('font')
     const text = this.get('text')
     const rotate = this.get('rotate')
     const fillStyle = this.get('fillStyle')
     const opacity = this.get('opacity')
     
     ctx.fillStyle = fillStyle
-    ctx.font=`${fontSize}px`;
+    ctx.font = font;
     ctx.globalAlpha = opacity;
     ctx.rotate(rotate / Math.PI * 2)
     ctx.translate(0, height / 2)
