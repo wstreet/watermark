@@ -12,7 +12,8 @@ class WaterMark {
     rotate: -30,
     fillStyle: '#ccc',
     opacity: 1.0,
-    text: ''
+    text: '',
+    zIndex: 9999
   }
 
   constructor(options) {
@@ -129,7 +130,7 @@ class WaterMark {
       bottom: 0; 
       right: 0;
       pointer-events: none;
-      z-index: 9999
+      z-index: ${this.get('zIndex')}
       `
     )
     this.set('dom', dom)

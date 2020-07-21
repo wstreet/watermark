@@ -38,5 +38,6 @@ const waterMark = new WaterMark(config)
 | rotate | 文本倾斜角度 | -30（canvas 正旋转为顺时针）<br />[https://www.yuque.com/streetex/fbqzli/fdz7ic#ui7xH](https://www.yuque.com/streetex/fbqzli/fdz7ic#ui7xH) |
 | fillStyle | 文本颜色 | #ccc |
 | opacity | 透明度 | 1.0 |
+| zIndex | z-index | 9999 |
 
 
